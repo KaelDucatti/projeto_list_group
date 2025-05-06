@@ -5,28 +5,48 @@
 {% block subtitle %}Users{% endblock %}
 
 {% block content %}
-    <form action="/users" method="POST">
-        Name <input type="text" name="name" required><br>
-        Age <input type="text" name="age" required><br>
-        Gender <input type="text" name="gender" required><br>
-        E-mail <input type="text" name="email" required><br><br>
-        <input type="submit" value="Add user">
-    </form>
+    <div class="container mt-4">
+        <form action="/users" method="POST">
+            <div class="form-group">
+                <label for="name">Name</label>
+                <input type="text" class="form-control" id="name" name="name" required>
+            </div>
+
+            <div class="form-group">
+                <label for="age">Age</label>
+                <input type="text" class="form-control" id="age" name="age" required>
+            </div>
+
+            <div class="form-group">
+                <label for="gender">Gender</label>
+                <input type="text" class="form-control" id="gender" name="gender" required>
+            </div>
+
+            <div class="form-group">
+                <label for="email">E-mail</label>
+                <input type="text" class="form-control" id="email" name="email" required>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Add user</button>
+        </form>
+    </div>
     <hr>
 
     {% if users %}
         <ul>
         {% for user in users %}
-            <details>
-                <summary style="background-color: lightgrey;">
-                    {{ user["name"] }}
-                </summary>
-                <div style="background-color: skyblue;">
-                    Age: {{ user["age"] }} <br>
-                    Gender: {{ user["gender"] }} <br>
-                    E-mail: {{ user["email"] }} <br>    
+            <p>
+                <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample_{{user['name']}}" role="button" aria-expanded="false" aria-controls="collapseExample_{{user['name']}}">
+                    {{user["name"]}}
+                </a>
+            </p>
+            <div class="collapse" id="collapseExample_{{user['name']}}">
+                <div class="card card-body">
+                    Age: {{user["age"]}} <br>
+                    Gender: {{user["gender"]}} <br>
+                    E-mail: {{user["email"]}} <br>
                 </div>
-            </details>
+            </div>
         {% endfor %}
         </ul>
     {% else %}
