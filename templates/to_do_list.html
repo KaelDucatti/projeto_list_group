@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block title %}To Do{% endblock %}
+
+{% block subtitle %} ToDo List {% endblock %}
+
+{% block content %}
+    <!-- Adicionado container e margem no topo -->
+    <div class="container mt-4">  
+        <form action="/to_do_list" method="POST">
+            <!-- Adicionada row para organizar as colunas -->
+            <div class="row">  
+                <span class="col-md-6">
+                    <input type="text" name="task" class="form-control" placeholder="Insira a nova task">
+                </span>
+                <span class="col-md-6">  
+                    <button type="submit" class="btn btn-primary">Add task</button>
+                </span>
+            </div>
+        </form>
+        <hr>
+
+        {% if tasks %}
+        <!-- Adicionado list-unstyled e padding-start (ps-3) -->
+            <ul class="list-group">  
+            {% for task in tasks %}
+            <!-- Adicionado mb-2 (margin-bottom) para espaçamento -->
+                <li class="list-group-item">  
+                    <b>{{ task }}</b>
+                </li>
+            {% endfor %}
+            </ul>
+        {% else %}
+            <h3>There's nothing here...</h3>
+        {% endif %}
+    <!-- Fechamento do container -->    
+    </div>  
+{% endblock %}
