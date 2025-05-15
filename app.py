@@ -54,7 +54,7 @@ def to_do_list():
 @app.route("/top_films", methods=["GET"])
 def top_films():
     url = f"https://api.themoviedb.org/3/movie/popular?api_key={api_key}"
-    resposta = urllib.request.urlopen(url)
-    dados = resposta.read()
-    json_dados = json.loads(dados)
-    return json_dados["results"]
+    response = urllib.request.urlopen(url)
+    data = response.read()
+    json_data = json.loads(data)
+    return render_template("films.html", films=json_data["result"])
