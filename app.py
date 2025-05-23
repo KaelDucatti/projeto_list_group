@@ -1,8 +1,7 @@
 from flask import Flask, render_template, request, redirect, url_for, session
 from dotenv import load_dotenv
 from os import environ
-import urllib.request
-import json
+import requests
 
 
 load_dotenv()
@@ -54,7 +53,10 @@ def to_do_list():
 @app.route("/top_films", methods=["GET"])
 def top_films():
     url = f"https://api.themoviedb.org/3/movie/popular?api_key={api_key}"
-    response = urllib.request.urlopen(url)
-    data = response.read()
-    json_data = json.loads(data)
-    return render_template("films.html", films=json_data["result"])
+    response = requests.get(url)
+
+    if response.status_code == 200:
+        json_data = response.json()
+        return render_template("films.html", films=json_data["results"])
+    else:
+        return render_template("films.html", films=[], error="Error acessing API")
