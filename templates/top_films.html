@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Top Films List
+{% endblock title %}
+
+{% block subtitle %}
+    Top Filmes List
+{% endblock subtitle %}
+
+{% block content %}
+    {% if films %}
+        <div class="container">
+            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
+                {% for film in films %}
+                    <div class="col">
+                        <div class="card h-100 shadow-sm border-0">
+                            <img src="https://image.tmdb.org/t/p/w500/{{ film.backdrop_path }}" 
+                                class="card-img-top rounded-top" 
+                                alt="Backdrop of {{ film.title }}">
+
+                            <div class="card-body d-flex flex-column">
+                                <h5 class="card-title text-center">{{ film.title }}</h5>
+
+                                <p class="card-text" style="display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; text-overflow: ellipsis;">
+                                    {{ film.overview }}
+                                </p>
+
+                                <div class="mt-auto">
+                                    <p class="card-subtitle mb-1 text-muted"><strong>Rate:</strong> {{ film.vote_average }}</p>
+                                    <p class="card-subtitle text-muted"><strong>Votes:</strong> {{ film.vote_count }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    {% else %}
+        <h3 class="text-muted text-center">There's nothing here...</h3>
+    {% endif %}
+{% endblock content %}

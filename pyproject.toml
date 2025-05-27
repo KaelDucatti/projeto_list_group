@@ -1,0 +1,16 @@
+[tool.ruff]
+line-length = 79
+extend-exclude = ['migrations']
+
+[tool.ruff.lint]
+preview = true
+select = ['I', 'F', 'E', 'W', 'PL', 'PT']
+
+[tool.taskipy.tasks]
+lint = 'ruff check'
+pre_format = 'ruff check --fix'
+format = 'ruff format'
+run = 'flask run'
+pre_test = 'task lint'
+test = 'pytest -s -x --cov=python_fastapi -vv'
+post_test = 'coverage html'

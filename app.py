@@ -1,8 +1,8 @@
-from flask import Flask, render_template, request, redirect, url_for, session
-from dotenv import load_dotenv
 from os import environ
-import requests
 
+import requests
+from dotenv import load_dotenv
+from flask import Flask, redirect, render_template, request, session, url_for
 
 load_dotenv()
 
@@ -55,8 +55,10 @@ def top_films():
     url = f"https://api.themoviedb.org/3/movie/popular?api_key={api_key}"
     response = requests.get(url)
 
-    if response.status_code == 200:
+    if response.status_code == 200:  # noqa: PLR2004
         json_data = response.json()
-        return render_template("films.html", films=json_data["results"])
+        return render_template("top_films.html", films=json_data["results"])
     else:
-        return render_template("films.html", films=[], error="Error acessing API")
+        return render_template(
+            "top_films.html", films=[], error="Error acessing API"
+        )

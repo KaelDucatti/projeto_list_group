@@ -1,13 +1,17 @@
-import urllib.request
-import json
+import os
+
+import requests
+from dotenv import load_dotenv
+
+load_dotenv()
+
+api_key = os.environ["API_KEY"]
 
 
 url = f"https://api.themoviedb.org/3/movie/popular?api_key={api_key}"
 
-resposta = urllib.request.urlopen(url)
+resposta = requests.get(url)
 
-dados = resposta.read()
+dados = resposta.json()
 
-json_dados = json.loads(dados)
-
-print(json_dados["results"])
+print(dados["results"])
